@@ -30,4 +30,4 @@ jobs:
 
     # Step 4: Run PHPUnit tests
     - name: Run PHPUnit tests
-      run: vendor/bi
+      run: bin/phpunit
