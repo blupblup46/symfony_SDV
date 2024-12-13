@@ -1,0 +1,33 @@
+name: Run PHPUnit Tests
+
+on:
+  push:
+    branches:
+      - master  # You can change this to the branch you want to trigger on push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # You can also choose other OS like 'macos-latest' or 'windows-latest'
+
+    steps:
+    # Step 1: Checkout the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up PHP
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'  # Set your PHP version here
+        extensions: mbstring, dom, json, xml, xmlwriter, tokenizer  # Required PHP extensions
+        coverage: none  # Optional, for code coverage integration
+
+    # Step 3: Install dependencies (Composer)
+    - name: Install dependencies
+      run: |
+        curl -sS https://getcomposer.org/installer | php  # Install Composer if it's not installed
+        php composer.phar install  # Install your dependencies (Make sure you have a composer.json)
+
+    # Step 4: Run PHPUnit tests
+    - name: Run PHPUnit tests
+      run: vendor/bi
